@@ -74,8 +74,8 @@ async def grpc_home(request: Request):
         return templates.TemplateResponse("index.html", {"request": request, "message": f"gRPC request failed: {str(e)}"})
     
     try:
-        data = data[:2]
         length = len(data)
+        data = data[:2]
     except TypeError:
         length = 0
         data = data
