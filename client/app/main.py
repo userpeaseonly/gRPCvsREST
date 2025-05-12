@@ -13,7 +13,7 @@ load_dotenv()
 templates = Jinja2Templates(directory="templates")
 app = FastAPI()
 
-rest_url = os.getenv("REST_URL", "http://0.0.0.0:8001/products")
+rest_url = os.getenv("REST_URL", "http://188.245.209.201:8001/products")
 
 
 @app.get("/rest", response_class=HTMLResponse)

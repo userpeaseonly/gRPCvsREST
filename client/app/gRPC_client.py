@@ -10,7 +10,7 @@ import products_pb2
 import products_pb2_grpc
 
 
-products_host = os.environ.get('PRODUCTS_HOST', 'localhost')
+products_host = os.environ.get('PRODUCTS_HOST', '188.245.209.201')
 products_port = os.environ.get('PRODUCTS_PORT', '50051')
 print(f"gRPC server address: {products_host}:{products_port}")
 
