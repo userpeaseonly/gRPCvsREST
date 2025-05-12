@@ -34,9 +34,6 @@ def get_products():
             products_pb2.GetProductsRequest(),
             timeout=360.0
         )
-        serialized = response.SerializeToString()
-        print(f"Serialized size: {len(serialized) / (1024 * 1024):.2f} MB")
-
         return response.products
     except grpc.RpcError as e:
         error_code = e.code() if hasattr(e, 'code') else None

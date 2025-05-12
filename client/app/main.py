@@ -64,11 +64,10 @@ async def grpc_home(request: Request):
     duration = None
     try:
         start_time = time.perf_counter()
-        
         data = get_products()
-        
         end_time = time.perf_counter()
         duration = end_time - start_time
+        
         print("============== gRPC API response ==============")
         print(f"{duration:.2f} seconds")
         print("============== gRPC API response ==============", end="\n\n")
