@@ -1,0 +1,105 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django/Flask stuff:
+*.log
+local_settings.py
+db.sqlite3
+
+# FastAPI / Uvicorn logs
+*.pid
+*.log
+
+# PostgreSQL data (for Docker volume)
+pgdata/
+
+# SQLAlchemy migrations
+migrations/
+alembic.ini
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# grpc generated files
+*_pb2.py
+*_pb2_grpc.py
+
+# Docker
+*.env
+.env
+Dockerfile
+docker-compose.override.yml
+
+# VSCode
+.vscode/
+
+# Mac / Linux / Windows system files
+.DS_Store
+Thumbs.db
+
+# PyCharm
+.idea/

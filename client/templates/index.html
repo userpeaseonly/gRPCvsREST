@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Request Stats Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    <div class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-2xl space-y-6">
+      <h1 class="text-2xl font-bold text-center text-gray-800">
+        Request Summary
+      </h1>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 text-lg">
+        <div>
+          <span class="font-semibold">Total Records:</span>
+          <span id="data-count">{{ data.count }}</span>
+        </div>
+        <div>
+          <span class="font-semibold">Time Taken:</span>
+          <span id="data-duration">{{ data.duration_ms }}</span> s
+        </div>
+        <div>
+          <span class="font-semibold">Status:</span>
+          <span id="data-status" class="font-medium">{{ data.status }}</span>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-semibold mb-2">Preview (first 2 rows)</h2>
+        <pre
+          id="data-preview"
+          class="bg-gray-200 rounded-md p-4 text-sm text-gray-800 overflow-x-auto"
+        >
+{{ data.preview | safe }}</pre>
+      </div>
+    </div>
+  </body>
+</html>

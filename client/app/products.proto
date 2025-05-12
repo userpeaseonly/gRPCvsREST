@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package products;
+
+service ProductService {
+  rpc GetProducts (GetProductsRequest) returns (GetProductsResponse);
+}
+
+message GetProductsRequest {
+  // You can add filters/pagination later
+}
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message GetProductsResponse {
+  repeated Product products = 1;
+  double duration_seconds = 2; // Include execution time like in your REST endpoint
+}
