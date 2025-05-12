@@ -18,7 +18,7 @@ class ProductService(products_pb2_grpc.ProductServiceServicer):
         db: Session = SessionLocal()
         start_time = time.perf_counter()
         
-        products = db.query(Product).limit(1_000_000).all()
+        products = db.query(Product).limit(100_000).all()
         
         end_time = time.perf_counter()
         duration = end_time - start_time
