@@ -23,7 +23,7 @@ async def home(request: Request):
     response = None
     duration = None
     
-    timeout = httpx.Timeout(60.0, read=60.0)
+    timeout = httpx.Timeout(60.0, read=360.0)
     async with httpx.AsyncClient(timeout=timeout) as client:
         try:
             start_time = time.perf_counter()

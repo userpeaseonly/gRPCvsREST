@@ -32,7 +32,7 @@ def get_products():
         # Set timeout for gRPC call (5 seconds)
         response = stub.GetProducts(
             products_pb2.GetProductsRequest(),
-            timeout=60.0
+            timeout=360.0
         )
         serialized = response.SerializeToString()
         print(f"Serialized size: {len(serialized) / (1024 * 1024):.2f} MB")
