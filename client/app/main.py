@@ -27,12 +27,12 @@ async def home(request: Request):
     async with httpx.AsyncClient(timeout=timeout) as client:
         try:
             start_time = time.perf_counter()
-            
             response = await client.get(rest_url)
-            
             end_time = time.perf_counter()
             duration = end_time - start_time
-            print(f"Request duration: {duration:.2f} seconds")
+            print("============== REST API response ==============")
+            print(f"{duration:.2f} seconds")
+            print("============== REST API response ==============", end="\n\n")
             if response.status_code == 200:
                 data = response.json()
             else:
@@ -69,7 +69,9 @@ async def grpc_home(request: Request):
         
         end_time = time.perf_counter()
         duration = end_time - start_time
-        print(f"Request duration: {duration:.2f} seconds")
+        print("============== gRPC API response ==============")
+        print(f"{duration:.2f} seconds")
+        print("============== gRPC API response ==============", end="\n\n")
     except grpc.RpcError as e:
         return templates.TemplateResponse("index.html", {"request": request, "message": f"gRPC request failed: {str(e)}"})
     
