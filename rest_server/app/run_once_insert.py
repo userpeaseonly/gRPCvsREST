@@ -9,3 +9,4 @@ for i in range(1_000_000):
         db.commit()
 db.commit()
 db.close()
+print("Inserted 1,000,000 products into the database.")

@@ -2,12 +2,17 @@
 import grpc
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from . import products_pb2
 from . import products_pb2_grpc
 
 
 products_host = os.environ.get('PRODUCTS_HOST', 'localhost')
 products_port = os.environ.get('PRODUCTS_PORT', '50051')
+print(f"gRPC server address: {products_host}:{products_port}")
 
 # gRPC client setup
 MAX_MESSAGE_SIZE = 512 * 1024 * 1024  # 512MB
@@ -27,7 +32,7 @@ def get_products():
         # Set timeout for gRPC call (5 seconds)
         response = stub.GetProducts(
             products_pb2.GetProductsRequest(),
-            timeout=30.0
+            timeout=60.0
         )
         serialized = response.SerializeToString()
         print(f"Serialized size: {len(serialized) / (1024 * 1024):.2f} MB")
