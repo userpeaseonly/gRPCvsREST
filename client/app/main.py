@@ -6,7 +6,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from dotenv import load_dotenv
-from .gRPC_client import get_products
+from gRPC_client import get_products
 
 load_dotenv()
 

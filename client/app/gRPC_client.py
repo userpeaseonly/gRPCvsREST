@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from . import products_pb2
-from . import products_pb2_grpc
+import products_pb2
+import products_pb2_grpc
 
 
 products_host = os.environ.get('PRODUCTS_HOST', 'localhost')
