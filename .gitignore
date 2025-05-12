@@ -91,7 +91,6 @@ dmypy.json
 # Docker
 *.env
 .env
-Dockerfile
 docker-compose.override.yml
 
 # VSCode
