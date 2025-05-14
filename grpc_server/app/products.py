@@ -19,14 +19,14 @@ class ProductService(products_pb2_grpc.ProductServiceServicer):
         try:
             start_time = time.perf_counter()
 
-            products = db.query(Product.id, Product.name, Product.description).limit(100_000).all()
+            products = db.query(Product.id, Product.name, Product.description).limit(1_000_000).all()
             
             end_time = time.perf_counter()
             
             execution_time = end_time - start_time
 
             print(f"Query executed in {execution_time:.2f} seconds")
-            
+
             response = products_pb2.GetProductsResponse(
                 duration_seconds=execution_time,
             )

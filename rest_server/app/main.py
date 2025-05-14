@@ -40,7 +40,7 @@ def get_db():
 def get_products(db: Session = Depends(get_db)):
     start_time = time.perf_counter()
 
-    products = db.query(Product.id, Product.name, Product.description).limit(100_000).all()
+    products = db.query(Product.id, Product.name, Product.description).limit(1_000_000).all()
     
     end_time = time.perf_counter()
     
