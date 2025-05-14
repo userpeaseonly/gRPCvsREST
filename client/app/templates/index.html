@@ -18,11 +18,19 @@
         </div>
         <div>
           <span class="font-semibold">Time Taken:</span>
-          <span id="data-duration">{{ data.duration_ms }}</span> s
+          <span id="data-duration">{{ data.duration_ms }}</span> ms
         </div>
         <div>
           <span class="font-semibold">Status:</span>
           <span id="data-status" class="font-medium">{{ data.status }}</span>
+        </div>
+        <div>
+          <span class="font-semibold">Query Time:</span>
+          <span id="data-query" class="font-medium">{{ data.query_time }}</span> ms
+        </div>
+        <div>
+          <span class="font-semibold">Request Time:</span>
+          <span id="data-request-time" class="font-medium">{{ data.request_time }}</span> ms
         </div>
       </div>
 

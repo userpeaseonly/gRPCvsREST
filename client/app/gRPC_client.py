@@ -34,7 +34,7 @@ def get_products():
             products_pb2.GetProductsRequest(),
             timeout=360.0
         )
-        return response.products
+        return response.products, response.duration_seconds
     except grpc.RpcError as e:
         error_code = e.code() if hasattr(e, 'code') else None
         if error_code == grpc.StatusCode.UNAVAILABLE:

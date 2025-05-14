@@ -30,13 +30,15 @@ async def home(request: Request):
             response = await client.get(rest_url)
             end_time = time.perf_counter()
             duration = end_time - start_time
+            query_time = response.json().get("duration_seconds") if response.status_code == 200 else None
+            data = response.json()["products"] if response.status_code == 200 else None
+            if query_time:
+                print(f"Query time: {query_time:.2f} seconds")
+            else:
+                print("Query time: Unknown")
             print("============== REST API response ==============")
             print(f"{duration:.2f} seconds")
             print("============== REST API response ==============", end="\n\n")
-            if response.status_code == 200:
-                data = response.json()
-            else:
-                data = "Error: Received unexpected status code."
         except httpx.RequestError as e:
             return templates.TemplateResponse("index.html", {"request": request, "message": f"Request failed: {str(e)}"})
     
@@ -46,7 +48,9 @@ async def home(request: Request):
         "request": request,
         "data": {
             "count": len(data) if data else 0,
-            "duration_ms": f"{duration:.2f}" if duration else "Unknown",
+            "duration_ms": f"{duration * 1000:.2f}" if duration else "Unknown",  # Convert duration to milliseconds
+            "request_time": f"{(duration * 1000 - query_time * 1000):.2f}" if duration and query_time else "Unknown",
+            "query_time": f"{query_time * 1000:.2f}" if query_time else "Unknown",  # Convert query_time to milliseconds
             "status": response.status_code if response else "Unknown", 
             "preview": data[:2] if isinstance(data, list) else data,
         }
@@ -61,12 +65,18 @@ async def grpc_home(request: Request):
     print("Request to gRPC API")
     data = None
     response = None
+    query_time = None
     duration = None
     try:
         start_time = time.perf_counter()
-        data = get_products()
+        data, query_time = get_products()
         end_time = time.perf_counter()
         duration = end_time - start_time
+        
+        if query_time:
+            print(f"Query time: {query_time:.2f} seconds")
+        else:
+            print("Query time: Unknown")
         
         print("============== gRPC API response ==============")
         print(f"{duration:.2f} seconds")
@@ -81,13 +91,13 @@ async def grpc_home(request: Request):
         length = 0
         data = data
     
-    print("Response count:", len(data) if data else 0)
-    print("Response data:", data)
     context = {
         "request": request,
         "data": {
             "count": length,
-            "duration_ms": f"{duration:.2f}" if duration else "Unknown",
+            "duration_ms": f"{duration * 1000:.2f}" if duration else "Unknown",  # Convert duration to milliseconds
+            "request_time": f"{(duration * 1000 - query_time * 1000):.2f}" if duration and query_time else "Unknown",
+            "query_time": f"{query_time * 1000:.2f}" if query_time else "Unknown",  # Convert query_time to milliseconds
             "status": "200" if data else "Unknown", 
             "preview": data,
         }
