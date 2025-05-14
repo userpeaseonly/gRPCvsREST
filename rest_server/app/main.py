@@ -13,6 +13,10 @@ class ProductResponse(BaseModel):
     name: str
     description: str
 
+class ProductResponseWithDuration(BaseModel):
+    duration_seconds: float
+    products: List[ProductResponse]
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -30,17 +34,21 @@ def get_db():
         yield db
     finally:
         db.close()
-        
 
-@app.get("/products", response_model=List[ProductResponse])
+
+@app.get("/products", response_model=ProductResponseWithDuration)
 def get_products(db: Session = Depends(get_db)):
     start_time = time.perf_counter()
 
-    products = db.query(Product).limit(100_000).all()
+    products = db.query(Product.id, Product.name, Product.description).limit(100_000).all()
     
     end_time = time.perf_counter()
+    
     execution_time = end_time - start_time
 
     print(f"Query time: {execution_time:.2f} seconds")
     
-    return [ProductResponse(id=p.id, name=p.name, description=p.description) for p in products]
+    return ProductResponseWithDuration(
+        duration_seconds=execution_time,
+        products=[ProductResponse(id=p.id, name=p.name, description=p.description) for p in products]
+    )

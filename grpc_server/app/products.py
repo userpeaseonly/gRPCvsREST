@@ -16,29 +16,37 @@ class ProductService(products_pb2_grpc.ProductServiceServicer):
     def GetProducts(self, request, context):
         print("Received request for products")
         db: Session = SessionLocal()
-        start_time = time.perf_counter()
-        
-        products = db.query(Product).limit(100_000).all()
-        
-        end_time = time.perf_counter()
-        duration = end_time - start_time
-        print(f"Query executed in {duration:.2f} seconds")
+        try:
+            start_time = time.perf_counter()
 
-        response = products_pb2.GetProductsResponse(
-            duration_seconds=duration,
-        )
-        for product in products:
-            response.products.append(
+            products = db.query(Product.id, Product.name, Product.description).limit(100_000).all()
+            
+            end_time = time.perf_counter()
+            
+            execution_time = end_time - start_time
+
+            print(f"Query executed in {execution_time:.2f} seconds")
+            
+            response = products_pb2.GetProductsResponse(
+                duration_seconds=execution_time,
+            )
+            response.products.extend(
                 products_pb2.Product(
                     id=product.id,
                     name=product.name,
                     description=product.description
-                )
+                ) for product in products
             )
-        db.close()
-        
-        print(f"Returning {len(products)} products")
-        return response
+            
+            print(f"Returning {len(products)} products")
+            return response
+        except Exception as e:
+            print(f"Error occurred: {e}")
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details('Internal server error')
+            return products_pb2.GetProductsResponse()
+        finally:
+            db.close()
 
 def serve():
     Base.metadata.create_all(bind=engine)
